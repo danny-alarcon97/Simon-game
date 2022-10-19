@@ -27,11 +27,26 @@ $(".btn").click(function () {
 
   playSound(userChosenColor);
   animatePress(userChosenColor);
+
+  checkAnswer(userClickedPattern.length - 1);
 });
 
-function nextSequence() {
-  level++;
+function checkAnswer(currentLevel) {
+  if (gamePattern[currentLevel] === userClickedPattern[currentLevel]) {
+    console.log("success");
 
+    if (userClickedPattern.length === gamePattern.length) {
+      setTimeout(function () {
+        nextSequence();
+      }, 1000);
+    }
+  }
+}
+
+function nextSequence() {
+  userClickedPattern = [];
+
+  level++;
   $("#level-title").text(`Level ${level}`);
 
   var randomNum = Math.floor(Math.random() * 4);
